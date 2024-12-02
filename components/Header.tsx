@@ -1,44 +1,36 @@
-import NextLogo from "./NextLogo";
-import SupabaseLogo from "./SupabaseLogo";
+import { Menu, Search, ShoppingCart } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function Header() {
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <div className="w-full">
+      {/* Main header with navigation */}
+      <div className="flex justify-between items-center px-4 py-3 bg-white">
+        <div className="flex items-center gap-2 w-[88px]">
+          <Button variant="ghost" size="icon" className="hover:bg-gray-100">
+            <span className="sr-only">Menu</span>
+            <Menu size={20} />
+          </Button>
+        </div>
+
+        <div className="flex-1 flex justify-center">
+          <div className="text-xl font-bold">
+            STORE
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" className="hover:bg-gray-100">
+            <span className="sr-only">Search</span>
+            <Search size={20} />
+          </Button>
+          <Button variant="ghost" size="icon" className="hover:bg-gray-100 relative">
+            <span className="sr-only">Cart</span>
+            <ShoppingCart size={20} />
+            <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
+          </Button>
+        </div>
       </div>
-      <h1 className="sr-only">Supabase and Next.js/Prisma/Shadcn Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );
 }

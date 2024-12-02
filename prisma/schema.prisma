@@ -8,16 +8,47 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model articles {
-  id         BigInt   @id @default(autoincrement())
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  title      String?
+model Product {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  images      String[]        // Store URLs to product images
+  variants    ProductVariant[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model views {
-  id         BigInt   @id @default(autoincrement())
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  name       String?
+model ProductVariant {
+  id        String      @id @default(cuid())
+  productId String
+  size      String      // e.g., "Small", "Medium", "Large"
+  charm     String?     // e.g., "Heart", "Star" (nullable if no charm)
+  quantity  Int
+  price     Float       // Override price if necessary for this variant
+  product   Product     @relation(fields: [productId], references: [id])
+  orderItems OrderItem[]
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String      // This will store Supabase auth.user.id
+  total      Float
+  status     String      // e.g., "Pending", "Shipped", "Completed"
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id              String         @id @default(cuid())
+  orderId         String
+  productVariantId String
+  quantity        Int
+  price           Float
+  order           Order          @relation(fields: [orderId], references: [id])
+  productVariant  ProductVariant @relation(fields: [productVariantId], references: [id])
+
+  @@index([orderId])
+  @@index([productVariantId])
 }
