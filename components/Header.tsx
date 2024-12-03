@@ -14,8 +14,8 @@ export default function Header() {
         </div>
 
         <div className="flex-1 flex justify-center">
-          <div className="text-xl font-bold">
-            STORE
+          <div className="text-xl font-bold font-magnolia">
+            Maluhia
           </div>
         </div>
 
