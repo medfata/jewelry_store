@@ -1,4 +1,5 @@
 import { GeistSans } from "geist/font/sans";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 
@@ -11,6 +12,10 @@ export const metadata = {
   title: "Maluhia",
   description: "jewelry store ",
 };
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -18,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" className={`${GeistSans.className} ${poppins.className}`}>
       <body className="bg-background text-foreground">
         <main className="min-h-screen flex flex-col items-center">
           <ThemeProvider

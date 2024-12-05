@@ -1,9 +1,10 @@
 import { Menu, Search, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
+import { cn } from "@/src/lib/utils"
 
-export default function Header() {
+export default function Header({ className }: { className?: string }) {
   return (
-    <div className="w-full">
+    <div className={cn("w-full", className)}>
       {/* Main header with navigation */}
       <div className="flex justify-between items-center px-4 py-3 bg-white">
         <div className="flex items-center gap-2 w-[88px]">

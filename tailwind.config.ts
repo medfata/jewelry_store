@@ -21,6 +21,8 @@ const config = {
       fontFamily: {
         magnolia: ['Magnolia Script', 'cursive'],
         sans: ['Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        playfair: ['Playfair Display', 'serif']
       },
       colors: {
         border: "hsl(var(--border))",
