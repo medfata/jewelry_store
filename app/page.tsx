@@ -2,6 +2,9 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import AuthButton from "../components/AuthButton";
 import Header from "@/components/Header";
 import Image from "next/image";
+import { Star } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 interface Product {
   title: string;
   description: string;
@@ -9,6 +12,11 @@ interface Product {
   sale?: string;
   price: number;
   reviews?: number;
+}
+interface Review {
+  reviewer_name: string;
+  rate: number;
+  desc: string;
 }
 
 const products: Product[] = [
@@ -73,6 +81,23 @@ const products: Product[] = [
     reviews: 320
   }
 ];
+const reviews: Review[] = [
+  {
+    rate: 5,
+    reviewer_name: 'Julien',
+    desc: 'the product was great, i loved the packaging, it came on time, and the customer service was helpful'
+  },
+  {
+    rate: 4.5,
+    reviewer_name: 'Tesla',
+    desc: 'the product was great, i loved the packaging, it came on time, and the customer service was helpful'
+  },
+  {
+    rate: 4.5,
+    reviewer_name: 'Tesla',
+    desc: 'the product was great, i loved the packaging, it came on time, and the customer service was helpful'
+  }
+]
 export default async function Index() {
   return (
     <div className="flex-1 w-full flex flex-col items-center">
@@ -141,7 +166,7 @@ export default async function Index() {
           </div>
         </div>
       </section>
-      <section className="w-full">
+      <section>
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto py-6">
           <h1 className="text-3xl md:text-5xl font-playfair font-bold leading-tight tracking-normal">
             <span className="block">Customizable Jewelry,</span>
@@ -182,7 +207,38 @@ export default async function Index() {
           ))}
         </div>
       </section>
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      <section>
+        <Carousel className="pt-10 w-full max-w-xs">
+          <CarouselContent className="ml-0 mr-[2rem]">
+            {
+              reviews.map((review, index) =>
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card key={index} >
+                      <CardContent className="flex flex-col justify-evenly aspect-square h-min  p-6">
+                        <div className="flex items-center mb-4">
+                          {Array.from({ length: review.rate }).map((_, index) => (
+                            <Star key={index} className="h-5 w-5 text-yellow-400" fill="currentColor" />
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-700 mb-4">
+                          {review.desc}
+                        </p>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm font-medium text-gray-900">{review.reviewer_name}</span>
+                          <span className="text-gray-400">✔</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+
+              )
+            }
+          </CarouselContent>
+        </Carousel>
+      </section>
+      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs mt-10">
       </footer>
     </div>
   );
